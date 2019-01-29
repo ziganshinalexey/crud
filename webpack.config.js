@@ -1,31 +1,37 @@
 const path = require('path');
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const isProduction = 'production' === process.env.NODE_ENV;
-const paths = {
-    public: path.resolve(__dirname, 'www'),
-    src: path.resolve(__dirname, 'src'),
-};
+const publicPath = path.resolve(__dirname, 'www');
+const sourcePath = path.resolve(__dirname, 'src');
 
 const htmlPlugin = new HtmlWebPackPlugin({
     filename: 'index.html',
     hash: true,
     production: isProduction,
-    template: path.resolve(paths.src, 'index.html'),
+    title: 'React App',
+    template: path.resolve(sourcePath, 'index.html'),
+});
+const cssPlugin = new MiniCssExtractPlugin({
+    filename: 'build/css/[name].css',
+    chunkFilename: 'build/css/[id].css'
 });
 
-const plugins = [htmlPlugin];
+const plugins = [cssPlugin, htmlPlugin];
 
 if (isProduction) {
-    plugins.unshift(new CleanWebpackPlugin([path.resolve(paths.public, 'build/*')]));
+    plugins.unshift(new CleanWebpackPlugin([path.resolve(publicPath, 'build/*')]));
 }
 
 const config = {
-    context: paths.src,
+    context: sourcePath,
     devServer: {
-        contentBase: paths.public,
+        contentBase: publicPath,
         historyApiFallback: true,
         port: process.env.PORT || 8080,
     },
@@ -40,18 +46,45 @@ const config = {
                 test: /\.(js|jsx)$/,
                 use: ['babel-loader'],
             },
+            {
+                test: /\.css$/,
+                use: [
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                ],
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                    'less-loader',
+                ],
+            },
         ],
+    },
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                cache: true,
+                parallel: true,
+                sourceMap: true,
+            }),
+            new OptimizeCSSAssetsPlugin(),
+        ]
     },
     output: {
         chunkFilename: 'build/js/[name].min.js',
         filename: 'build/js/[name].min.js',
         publicPath: '/',
-        path: paths.public,
+        path: publicPath,
     },
     plugins,
     resolve: {
         extensions: ['*', '.js', '.jsx'],
-        modules: [paths.src, 'node_modules'],
+        modules: [sourcePath, 'node_modules'],
     },
 };
 

@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './style.less';
 
 const root = document.getElementById('root');
 
