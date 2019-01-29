@@ -1,0 +1,16 @@
+# dependencies
+/node_modules
+
+# build
+/www/build
+/www/index.html
+
+# logs
+logs
+*.log
+npm-debug.log*
+
+# misc
+.idea
+.vscode
+**.DS_Store

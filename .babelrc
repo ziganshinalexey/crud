@@ -1,0 +1,24 @@
+{
+  "presets": [
+    ["@babel/preset-env", {"useBuiltIns": "entry"}],
+    "@babel/preset-react",
+    "@babel/preset-flow"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "flow-react-proptypes"
+      ]
+    },
+    "production": {
+      "plugins": [
+        "@babel/transform-react-constant-elements",
+        "@babel/transform-react-inline-elements"
+      ]
+    }
+  },
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties"
+  ]
+}
