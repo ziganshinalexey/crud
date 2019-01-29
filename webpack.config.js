@@ -63,6 +63,26 @@ const config = {
                     'less-loader',
                 ],
             },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'build/fonts/[hash:10].[ext]?[hash:8]',
+                    },
+                },
+            },
+            {
+                test: /\.(jpe?g|png|gif)$/,
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        fallback: 'file-loader',
+                        limit: 5000,
+                        name: 'build/images/[hash:10].[ext]?[hash:8]',
+                    },
+                },
+            },
         ],
     },
     optimization: {
