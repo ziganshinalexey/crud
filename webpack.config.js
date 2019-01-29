@@ -64,7 +64,7 @@ const config = {
                 ],
             },
             {
-                test: /\.(woff(2)?|ttf|eot|svg)$/,
+                test: /\.(woff(2)?|ttf|eot)$/,
                 use: {
                     loader: 'file-loader',
                     options: {
@@ -82,6 +82,13 @@ const config = {
                         name: 'build/images/[hash:10].[ext]?[hash:8]',
                     },
                 },
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                    'svg-sprite-loader',
+                    'svgo-loader'
+                ],
             },
         ],
     },
