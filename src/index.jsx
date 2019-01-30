@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style.less';
-import {SvgIcon} from "modules/ui/components/Svg";
+import {SvgIcon} from 'modules/ui/components/Svg';
 import svg from './icon.svg';
 
 const root = document.getElementById('root');
@@ -18,7 +18,4 @@ const App = () => (
     </div>
 );
 
-ReactDOM.render(
-    <App />,
-    root
-);
+ReactDOM.render(<App />, root);

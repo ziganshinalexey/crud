@@ -3,10 +3,10 @@ import React from 'react';
 
 type TProps = {
     src: {
-        id: string,
         content: string,
-        viewBox: string,
+        id: string,
         node: any,
+        viewBox: string,
     },
 };
 
