@@ -1,9 +1,11 @@
 // @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom';
+import {RootContainer} from 'app/containers/Root';
+import {createAppStore} from 'app/store';
 import './style.less';
-import {SvgIcon} from 'modules/ui/components/Svg';
-import svg from './icon.svg';
 
 const root = document.getElementById('root');
 
@@ -11,11 +13,13 @@ if (!root) {
     throw Error('Cannot find #root');
 }
 
-const App = () => (
-    <div>
-        <h1>React App</h1>
-        <SvgIcon src={svg} />
-    </div>
-);
+const store = createAppStore();
 
-ReactDOM.render(<App />, root);
+ReactDOM.render(
+    <Provider store={store}>
+        <BrowserRouter>
+            <RootContainer />
+        </BrowserRouter>
+    </Provider>,
+    root
+);
