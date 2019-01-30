@@ -10,6 +10,9 @@ logs
 *.log
 npm-debug.log*
 
+# coverage
+coverage
+
 # misc
 .idea
 .vscode

@@ -33,6 +33,7 @@
     "@babel/preset-react": "^7.0.0",
     "@userstory/eslint-config": "git+ssh://git@gitlab.userstory.ru:userstory-dev/eslint-config.git",
     "@userstory/stylelint-config": "git+ssh://git@gitlab.userstory.ru:userstory-dev/stylelint-config.git",
+    "babel-jest": "^24.0.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-flow-react-proptypes": "^24.1.2",
     "clean-webpack-plugin": "^1.0.1",
