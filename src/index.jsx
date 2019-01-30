@@ -5,8 +5,6 @@ import './style.less';
 import {SvgIcon} from "modules/ui/components/Svg";
 import svg from './icon.svg';
 
-console.log(svg);
-
 const root = document.getElementById('root');
 
 if (!root) {
@@ -15,7 +13,7 @@ if (!root) {
 
 const App = () => (
     <div>
-        123
+        <h1>React App</h1>
         <SvgIcon src={svg} />
     </div>
 );
@@ -24,5 +22,3 @@ ReactDOM.render(
     <App />,
     root
 );
-
-console.log(process.env.NODE_ENV);
