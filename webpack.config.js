@@ -18,8 +18,8 @@ const htmlPlugin = new HtmlWebPackPlugin({
     title: 'React App',
 });
 const cssPlugin = new MiniCssExtractPlugin({
-    chunkFilename: 'build/css/[id].css',
-    filename: 'build/css/[name].css',
+    chunkFilename: 'build/css/[id].min.css',
+    filename: 'build/css/[name].min.css',
 });
 
 const plugins = [cssPlugin, htmlPlugin];
