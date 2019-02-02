@@ -1,0 +1,6 @@
+stages:
+  - common
+
+ci-config-check:
+  stage: common
+  script: /pub/ci/ci_config/ci_config.py
