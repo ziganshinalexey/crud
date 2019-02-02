@@ -14,12 +14,12 @@ const htmlPlugin = new HtmlWebPackPlugin({
     filename: 'index.html',
     hash: true,
     production: isProduction,
-    title: 'React App',
     template: path.resolve(sourcePath, 'index.html'),
+    title: 'React App',
 });
 const cssPlugin = new MiniCssExtractPlugin({
+    chunkFilename: 'build/css/[id].css',
     filename: 'build/css/[name].css',
-    chunkFilename: 'build/css/[id].css'
 });
 
 const plugins = [cssPlugin, htmlPlugin];
@@ -48,20 +48,11 @@ const config = {
             },
             {
                 test: /\.css$/,
-                use: [
-                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    'css-loader',
-                    'postcss-loader',
-                ],
+                use: [isProduction ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', 'postcss-loader'],
             },
             {
                 test: /\.less$/,
-                use: [
-                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    'css-loader',
-                    'postcss-loader',
-                    'less-loader',
-                ],
+                use: [isProduction ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
             },
             {
                 test: /\.(woff(2)?|ttf|eot)$/,
@@ -85,10 +76,7 @@ const config = {
             },
             {
                 test: /\.svg$/,
-                use: [
-                    'svg-sprite-loader',
-                    'svgo-loader'
-                ],
+                use: ['svg-sprite-loader', 'svgo-loader'],
             },
         ],
     },
@@ -100,13 +88,14 @@ const config = {
                 sourceMap: true,
             }),
             new OptimizeCSSAssetsPlugin(),
-        ]
+        ],
+        splitChunks: {chunks: 'all'},
     },
     output: {
         chunkFilename: 'build/js/[name].min.js',
         filename: 'build/js/[name].min.js',
-        publicPath: '/',
         path: publicPath,
+        publicPath: '/',
     },
     plugins,
     resolve: {
