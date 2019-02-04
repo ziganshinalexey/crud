@@ -7,7 +7,7 @@
     "settings": {
         "react": {
             "version": "16.7",
-            "flowVersion": "0.91"
+            "flowVersion": "0.92"
         }
     }
 }
