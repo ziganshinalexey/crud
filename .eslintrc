@@ -1,13 +1,13 @@
 {
-  "root": true,
-  "extends": [
-    "@userstory/eslint-config/standards/pre/jsx/flow.js",
-    "@userstory/eslint-config/standards/post/jsx/flow.js",
-  ],
-  "settings": {
-    "react": {
-      "version": "16.7",
-      "flowVersion": "0.91"
+    "root": true,
+    "extends": [
+        "@userstory/eslint-config/standards/pre/jsx/flow.js",
+        "@userstory/eslint-config/standards/post/jsx/flow.js"
+    ],
+    "settings": {
+        "react": {
+            "version": "16.7",
+            "flowVersion": "0.91"
+        }
     }
-  }
 }
