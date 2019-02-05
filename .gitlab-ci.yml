@@ -1,6 +1,177 @@
 stages:
+  - pipelines
   - common
+  - static-code-analysis
+  - frontend
+  - validator-post
+  - packages-in-projects
+  - tag
+
+pipelines:
+  stage: pipelines
+  script: /pub/ci/pipelines/pipelines.py
+  only:
+    - branches
+    - merge_requests
 
 ci-config-check:
   stage: common
   script: /pub/ci/ci_config/ci_config.py
+  only:
+    - branches
+    - merge_requests
+
+changelog-check:
+  stage: common
+  script: /pub/ci/changelog/changelog.py
+  allow_failure: false
+  only:
+    - branches
+    - merge_requests
+
+validator-pre-global:
+  stage: static-code-analysis
+  variables:
+    TYPE: pre-global
+  script: /pub/ci/validator/project.py
+  allow_failure: false
+  only:
+    - branches
+    - merge_requests
+
+validator-pre-js:
+  stage: static-code-analysis
+  variables:
+    TYPE: pre-js
+  script: /pub/ci/validator/project.py
+  allow_failure: false
+  only:
+    - branches
+    - merge_requests
+
+validator-pre-css:
+  stage: static-code-analysis
+  variables:
+    TYPE: pre-css
+  script: /pub/ci/validator/project.py
+  allow_failure: false
+  only:
+    - branches
+    - merge_requests
+
+validator-pre-jsx:
+  stage: static-code-analysis
+  variables:
+    TYPE: pre-jsx
+  script: /pub/ci/validator/project.py
+  allow_failure: false
+  only:
+    - branches
+    - merge_requests
+
+cpd-js:
+  stage: static-code-analysis
+  variables:
+    LANGUAGE: js
+  script: /pub/ci/cpd/project.py
+  allow_failure: true
+  only:
+    - branches
+    - merge_requests
+
+cpd-css:
+  stage: static-code-analysis
+  variables:
+    LANGUAGE: css
+  script: /pub/ci/cpd/project.py
+  allow_failure: true
+  only:
+    - branches
+    - merge_requests
+
+cpd-jsx:
+  stage: static-code-analysis
+  variables:
+    LANGUAGE: jsx
+  script: /pub/ci/cpd/project.py
+  allow_failure: true
+  only:
+    - branches
+    - merge_requests
+
+nodejs10:
+  stage: frontend
+  variables:
+    NODEJS_VERSION: 'nodejs10'
+  script: /pub/ci/frontend/project.py
+  allow_failure: false
+  only:
+    - branches
+    - tags
+    - merge_requests
+
+frontend_tests:
+  stage: frontend
+  variables:
+    NODEJS_VERSION: 'nodejs10'
+  script: /pub/ci/frontend/tests.py
+  allow_failure: true
+  only:
+    - branches
+    - tags
+    - merge_requests
+
+frontend_flow:
+  stage: frontend
+  variables:
+    NODEJS_VERSION: 'nodejs10'
+  script: /pub/ci/frontend/flow.py
+  allow_failure: true
+  only:
+    - branches
+    - tags
+    - merge_requests
+
+validator-post-js:
+  stage: validator-post
+  variables:
+    TYPE: post-js
+  script: /pub/ci/validator/project.py
+  allow_failure: true
+  only:
+    - master
+    - merge_requests
+
+validator-post-css:
+  stage: validator-post
+  variables:
+    TYPE: post-css
+  script: /pub/ci/validator/project.py
+  allow_failure: true
+  only:
+    - master
+    - merge_requests
+
+validator-post-jsx:
+  stage: validator-post
+  variables:
+    TYPE: post-jsx
+  script: /pub/ci/validator/project.py
+  allow_failure: true
+  only:
+    - master
+    - merge_requests
+
+packages-in-projects:
+  stage: packages-in-projects
+  script: /pub/ci/packages_in_projects/packages_in_projects.py
+  allow_failure: true
+  only:
+    - master
+
+tag:
+  stage: tag
+  script: /pub/ci/tag/project.py
+  only:
+    - master
+
