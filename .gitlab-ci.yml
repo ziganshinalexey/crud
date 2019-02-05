@@ -103,7 +103,7 @@ nodejs10:
   stage: frontend
   variables:
     NODEJS_VERSION: 'nodejs10'
-  script: /pub/ci/frontend/project.py
+  script: /pub/ci/frontend/starterkit.py
   allow_failure: false
   only:
     - branches
