@@ -109,7 +109,19 @@ const config = {
                 parallel: true,
                 sourceMap: true,
             }),
-            new OptimizeCSSAssetsPlugin(),
+            new OptimizeCSSAssetsPlugin({
+                cssProcessorOptions: {
+                    autoprefixer: false,
+                    discardUnused: false,
+                    map: {
+                        inline: false,
+                    },
+                    mergeIdents: false,
+                    reduceIdents: false,
+                    safe: true,
+                    zIndex: false,
+                },
+            }),
         ],
         splitChunks: {chunks: 'all'},
     },
