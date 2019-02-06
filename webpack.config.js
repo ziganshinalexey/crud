@@ -74,7 +74,14 @@ const config = {
                 },
             },
             {
-                test: /\.(jpe?g|png|gif)$/,
+                issuer: {
+                    test: /\.(js|jsx)$/,
+                },
+                test: /\.svg$/,
+                use: ['babel-loader', '@svgr/webpack'],
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/,
                 use: {
                     loader: 'url-loader',
                     options: {
@@ -83,10 +90,6 @@ const config = {
                         name: 'build/images/[hash:10].[ext]?[hash:8]',
                     },
                 },
-            },
-            {
-                test: /\.svg$/,
-                use: ['svg-sprite-loader', 'svgo-loader'],
             },
         ],
     },
