@@ -9,9 +9,15 @@ export function createAppStore() {
         exampleApi: new ExampleApi(),
     };
 
-    return makeStore({
+    const store = makeStore({
         debug: 'production' !== process.env.NODE_ENV,
         middlewares: [thunk.withExtraArgument(extraArgs)],
         reducer: rootReducer,
     });
+
+    if (module.hot) {
+        module.hot.accept('app/reducers', () => store.replaceReducer(rootReducer));
+    }
+
+    return store;
 }

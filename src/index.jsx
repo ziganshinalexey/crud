@@ -15,11 +15,19 @@ if (!root) {
 
 const store = createAppStore();
 
-ReactDOM.render(
-    <Provider store={store}>
-        <BrowserRouter>
-            <RootContainer />
-        </BrowserRouter>
-    </Provider>,
-    root
-);
+function render(App) {
+    ReactDOM.render(
+        <Provider store={store}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Provider>,
+        root
+    );
+}
+
+render(RootContainer);
+
+if (module.hot) {
+    module.hot.accept('app/containers/Root', () => render(RootContainer));
+}
