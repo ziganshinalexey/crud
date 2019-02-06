@@ -52,7 +52,17 @@ const config = {
             },
             {
                 test: /\.less$/,
-                use: [isProduction ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
+                use: [
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true,
+                        },
+                    },
+                ],
             },
             {
                 test: /\.(woff(2)?|ttf|eot)$/,
