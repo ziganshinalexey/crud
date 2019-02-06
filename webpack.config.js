@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const isProduction = 'production' === process.env.NODE_ENV;
@@ -21,8 +22,9 @@ const cssPlugin = new MiniCssExtractPlugin({
     chunkFilename: 'build/css/[id].min.css',
     filename: 'build/css/[name].min.css',
 });
+const ignoreLocales = new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/);
 
-const plugins = [cssPlugin, htmlPlugin];
+const plugins = [cssPlugin, htmlPlugin, ignoreLocales];
 
 if (isProduction) {
     plugins.unshift(new CleanWebpackPlugin([path.resolve(publicPath, 'build/*')]));
@@ -92,6 +94,13 @@ const config = {
                 },
             },
         ],
+    },
+    node: {
+        child_process: 'empty',
+        dgram: 'empty',
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
     },
     optimization: {
         minimizer: [
