@@ -10,6 +10,24 @@ const isProduction = 'production' === process.env.NODE_ENV;
 const publicPath = path.resolve(__dirname, 'www');
 const sourcePath = path.resolve(__dirname, 'src');
 
+const styleLoader = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
+const cssLoader = {
+    loader: 'css-loader',
+    options: {modules: false, sourceMap: true},
+};
+const cssModulesLoader = {
+    loader: 'css-loader',
+    options: {modules: true, sourceMap: true},
+};
+const postCssLoader = {
+    loader: 'postcss-loader',
+    options: {sourceMap: true},
+};
+const lessLoader = {
+    loader: 'less-loader',
+    options: {javascriptEnabled: true, sourceMap: true},
+};
+
 const htmlPlugin = new HtmlWebPackPlugin({
     filename: 'index.html',
     hash: true,
@@ -47,22 +65,22 @@ const config = {
                 use: ['babel-loader'],
             },
             {
+                exclude: /\.local\.css/,
                 test: /\.css$/,
-                use: [isProduction ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', 'postcss-loader'],
+                use: [styleLoader, cssLoader, postCssLoader],
             },
             {
+                exclude: /\.local\.less$/,
                 test: /\.less$/,
-                use: [
-                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    'css-loader',
-                    'postcss-loader',
-                    {
-                        loader: 'less-loader',
-                        options: {
-                            javascriptEnabled: true,
-                        },
-                    },
-                ],
+                use: [styleLoader, cssLoader, postCssLoader, lessLoader],
+            },
+            {
+                test: /\.local\.css/,
+                use: [styleLoader, cssModulesLoader, postCssLoader],
+            },
+            {
+                test: /\.local\.less/,
+                use: [styleLoader, cssModulesLoader, postCssLoader, lessLoader],
             },
             {
                 test: /\.(woff(2)?|ttf|eot)$/,
@@ -100,7 +118,13 @@ const config = {
                 parallel: true,
                 sourceMap: true,
             }),
-            new OptimizeCSSAssetsPlugin(),
+            new OptimizeCSSAssetsPlugin({
+                cssProcessorOptions: {
+                    map: {
+                        inline: true,
+                    },
+                },
+            }),
         ],
         splitChunks: {chunks: 'all'},
     },
