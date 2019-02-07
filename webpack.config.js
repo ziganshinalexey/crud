@@ -22,8 +22,9 @@ const cssPlugin = new MiniCssExtractPlugin({
     chunkFilename: 'build/css/[id].min.css',
     filename: 'build/css/[name].min.css',
 });
+const ignoreLocales = new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/);
 
-const plugins = [cssPlugin, htmlPlugin];
+const plugins = [cssPlugin, htmlPlugin, ignoreLocales];
 
 if (isProduction) {
     plugins.unshift(new CleanWebpackPlugin([path.resolve(publicPath, 'build/*')]));
@@ -97,6 +98,13 @@ const config = {
             },
         ],
     },
+    node: {
+        child_process: 'empty',
+        dgram: 'empty',
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
+    },
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
@@ -104,7 +112,19 @@ const config = {
                 parallel: true,
                 sourceMap: true,
             }),
-            new OptimizeCSSAssetsPlugin(),
+            new OptimizeCSSAssetsPlugin({
+                cssProcessorOptions: {
+                    autoprefixer: false,
+                    discardUnused: false,
+                    map: {
+                        inline: false,
+                    },
+                    mergeIdents: false,
+                    reduceIdents: false,
+                    safe: true,
+                    zIndex: false,
+                },
+            }),
         ],
         splitChunks: {chunks: 'all'},
     },
