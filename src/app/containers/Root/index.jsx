@@ -3,7 +3,7 @@ import {AppRouter} from 'app/routes';
 import cn from 'classnames';
 import React from 'react';
 import iconUrl, {ReactComponent as Icon} from './icon.svg';
-import styles from './Root.style.local.less';
+import styles from './style.local.less';
 
 export const RootContainer = () => (
     <div className={styles.root}>
