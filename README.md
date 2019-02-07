@@ -27,7 +27,6 @@ npm run build
 ## TODO
 
 - css sourcemap
-- hrm
 - global types: thunk, state
 - webpack-merge || webpack-blocks
 - US libs: api, intl
