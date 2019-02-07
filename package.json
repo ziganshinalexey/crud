@@ -78,7 +78,7 @@
         "lint:css": "stylelint src/**/*.{css,less}",
         "lint:js": "eslint src --ext .js,.jsx",
         "precommit": "lint-staged",
-        "start": "cross-env NODE_ENV=development webpack-dev-server --mode=development --hot",
+        "start": "cross-env NODE_ENV=development webpack-dev-server --mode=development",
         "test": "jest",
         "test:coverage": "jest --coverage"
     },

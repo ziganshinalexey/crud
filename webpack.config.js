@@ -5,6 +5,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
 
 const isProduction = 'production' === process.env.NODE_ENV;
 const publicPath = path.resolve(__dirname, 'www');
@@ -26,6 +27,8 @@ const plugins = [cssPlugin, htmlPlugin];
 
 if (isProduction) {
     plugins.unshift(new CleanWebpackPlugin([path.resolve(publicPath, 'build/*')]));
+} else {
+    plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 const config = {
@@ -33,6 +36,7 @@ const config = {
     devServer: {
         contentBase: publicPath,
         historyApiFallback: true,
+        hot: true,
         port: process.env.PORT || 8080,
     },
     devtool: isProduction ? 'source-map' : 'cheap-module-source-map',
