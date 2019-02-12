@@ -5,6 +5,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
 
 const isProduction = 'production' === process.env.NODE_ENV;
 const publicPath = path.resolve(__dirname, 'www');
@@ -39,11 +40,14 @@ const cssPlugin = new MiniCssExtractPlugin({
     chunkFilename: 'build/css/[id].min.css',
     filename: 'build/css/[name].min.css',
 });
+const ignoreLocales = new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/);
 
-const plugins = [cssPlugin, htmlPlugin];
+const plugins = [cssPlugin, htmlPlugin, ignoreLocales];
 
 if (isProduction) {
     plugins.unshift(new CleanWebpackPlugin([path.resolve(publicPath, 'build/*')]));
+} else {
+    plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 const config = {
@@ -51,6 +55,7 @@ const config = {
     devServer: {
         contentBase: publicPath,
         historyApiFallback: true,
+        hot: true,
         port: process.env.PORT || 8080,
     },
     devtool: isProduction ? 'source-map' : 'cheap-module-source-map',
@@ -111,6 +116,13 @@ const config = {
             },
         ],
     },
+    node: {
+        child_process: 'empty',
+        dgram: 'empty',
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
+    },
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
@@ -120,9 +132,15 @@ const config = {
             }),
             new OptimizeCSSAssetsPlugin({
                 cssProcessorOptions: {
+                    autoprefixer: false,
+                    discardUnused: false,
                     map: {
                         inline: true,
                     },
+                    mergeIdents: false,
+                    reduceIdents: false,
+                    safe: true,
+                    zIndex: false,
                 },
             }),
         ],
