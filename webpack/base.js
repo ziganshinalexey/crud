@@ -2,14 +2,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
-const defaultConfig = require('./default-config');
 
-module.exports = (options = {}) => {
-    const config = {
-        ...defaultConfig,
-        ...options,
-    };
-
+module.exports = () => (config) => {
     const plugins = [];
 
     if (config.isProduction) {

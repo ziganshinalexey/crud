@@ -1,13 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const defaultConfig = require('./default-config');
 
-module.exports = (options = {}) => {
-    const config = {
-        ...defaultConfig,
-        ...options,
-    };
-
+module.exports = () => (config) => {
     const styleLoader = config.isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
     const cssLoader = {
         loader: 'css-loader',

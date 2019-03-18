@@ -1,15 +1,10 @@
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const webpack = require('webpack');
-const merge = require('webpack-merge');
-const baseConfig = require('./webpack/base');
-const styleConfig = require('./webpack/style');
-const assetsConfig = require('./webpack/assets');
-const svgConfig = require('./webpack/svg');
-const htmlConfig = require('./webpack/html');
+const {createConfig, baseConfig, styleConfig, assetsConfig, svgConfig, htmlConfig} = require('./webpack');
 
 const ignoreLocales = new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/);
 
-const config = merge([
+const config = createConfig([
     baseConfig(),
     styleConfig(),
     assetsConfig(),
@@ -22,7 +17,7 @@ const config = merge([
         },
         plugins: [ignoreLocales],
     },
-]);
+])();
 
 const smp = new SpeedMeasurePlugin();
 

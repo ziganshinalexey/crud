@@ -1,11 +1,4 @@
-const defaultConfig = require('./default-config');
-
-module.exports = (options = {}) => {
-    const config = {
-        ...defaultConfig,
-        ...options,
-    };
-
+module.exports = () => (config) => {
     return {
         module: {
             rules: [
