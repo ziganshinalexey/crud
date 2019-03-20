@@ -1,6 +1,6 @@
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const webpack = require('webpack');
-const {createConfig, baseConfig, styleConfig, assetsConfig, svgConfig, htmlConfig} = require('./webpack');
+const {createConfig, baseConfig, styleConfig, assetsConfig, svgConfig, htmlConfig} = require('@userstory/webpack-config');
 
 const ignoreLocales = new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/);
 
