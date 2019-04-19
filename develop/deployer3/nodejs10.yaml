@@ -1,0 +1,36 @@
+name: frontend-starter-kit
+version: 3.1
+registry:
+  - hostname: cr.userstory.ru
+application_container: web
+wrappers:
+  composer: composer
+  mpm: nodejs
+  nodejs: nodejs
+  nginx: web
+containers:
+  nodejs:
+    image: cr.userstory.ru/userstory-dev/docker/nodejs:10
+    volumes:
+      - '{{project-path}}/:/data:rw'
+      - '{{home-path}}/.ssh:/root/.ssh'
+  web:
+    image: cr.userstory.ru/userstory-dev/docker/nginx
+    volumes:
+      - '{{project-path}}/:/data:rw'
+      - '{{project-path}}/develop/deployer/configs/nginx/nginx.conf:/etc/nginx/nginx.conf:rw'
+      - '{{project-path}}/develop/deployer/configs/nginx/front.conf:/etc/nginx/conf.d/front.conf'
+      - '{{project-path}}/develop/deployer/configs/nginx/webpack.conf:/etc/nginx/conf.d/webpack.conf'
+      - '{{project-path}}/develop/deployer/configs/nginx/default_locations:/etc/nginx/default_locations'
+    hostnames:
+      - '{{project-name}}'
+    environment:
+      - CONFIG={
+        "debug":0,
+        "host":"http://rest-api-host.local"
+        }
+  composer:
+    image: cr.userstory.ru/userstory-dev/docker/composer:php7.2
+    volumes:
+      - '{{project-path}}/:/data:rw'
+      - '{{home-path}}/.ssh:/root/.ssh'

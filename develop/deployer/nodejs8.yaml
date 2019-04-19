@@ -1,0 +1,33 @@
+name: pt
+dr_hostname: dr.userstory.ru
+dr_login: userstory
+dr_passwd: EptBrTec3
+containers_suits:
+  default:
+    - web
+    - nodejs
+    - composer
+containers:
+  web:
+    image: dr.userstory.ru/apache
+    volumes:
+      - '{{project-absolute-path}}/:/data:rw'
+      - '{{project-absolute-path}}/develop/deployer/configs/apache/apache2.conf:/etc/apache2/apache2.conf:rw'
+      - '{{project-absolute-path}}/develop/deployer/configs/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf:rw'
+    ip_address: 10.227.12.2
+  nodejs:
+    image: dr.userstory.ru/nodejs:8
+    volumes:
+      - '{{project-absolute-path}}/:/data:rw'
+      - ~/.ssh:/root/.ssh
+    ip_address: 10.227.12.3
+  composer:
+    image: dr.userstory.ru/composer:php7.1
+    volumes:
+      - '{{project-absolute-path}}/:/data:rw'
+      - ~/.ssh:/root/.ssh
+    ip_address: 10.227.12.4
+network:
+  subnet: 10.227.12.0/24
+  gateway: 10.227.12.1
+  
