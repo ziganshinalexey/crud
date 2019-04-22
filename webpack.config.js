@@ -11,6 +11,16 @@ const config = createConfig([
     svgConfig(),
     htmlConfig(),
     {
+        devServer: {
+            before(app) {
+                app.get('/api/v1/config', (req, res) => {
+                    res.json({
+                        debug: 1,
+                        host: 'http://rest-api-host.local',
+                    });
+                });
+            },
+        },
         entry: ['@babel/polyfill', 'whatwg-fetch', './index'],
         optimization: {
             splitChunks: {chunks: 'all'},
