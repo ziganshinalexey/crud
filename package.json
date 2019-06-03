@@ -17,7 +17,7 @@
         "@userstory/babel-preset": "^0.7.0",
         "@userstory/eslint-config": "git+ssh://git@gitlab.userstory.ru:userstory-dev/eslint-config.git",
         "@userstory/stylelint-config": "git+ssh://git@gitlab.userstory.ru:userstory-dev/stylelint-config.git",
-        "@userstory/webpack-config": "^0.1.1",
+        "@userstory/webpack-config": "^0.2.0",
         "babel-jest": "^24.7.1",
         "cross-env": "^5.2.0",
         "enzyme": "^3.9.0",
