@@ -1,12 +1,12 @@
 // @flow
 import {rootReducer} from 'app/reducers';
-import {ExampleApi} from 'modules/example/services/ExampleApi';
+import {InvoiceApi} from 'modules/invoices/services/api';
 import thunk from 'redux-thunk';
 import {makeStore} from './makeStore';
 
 export function createAppStore() {
     const extraArgs = {
-        exampleApi: new ExampleApi(),
+        invoiceApi: new InvoiceApi(),
     };
 
     const store = makeStore({

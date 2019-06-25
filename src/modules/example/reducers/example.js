@@ -15,19 +15,19 @@ export type TActionGetExampleFail = {type: EXAMPLE_ACTION_TYPE.GET_EXAMPLE_FAIL}
 export type TActionGetExampleSuccess = {payload: TExample, type: EXAMPLE_ACTION_TYPE.GET_EXAMPLE_SUCCESS};
 type TExampleAction = TActionGetExampleStart | TActionGetExampleFail | TActionGetExampleSuccess;
 
-export type TExampleState = $ReadOnly<{|
+export type TInvoiceState = $ReadOnly<{|
     data: TExampleData,
     isLoading: boolean,
     list: string[],
 |}>;
 
-export const initialState: TExampleState = {
+export const initialState: TInvoiceState = {
     data: {},
     isLoading: false,
     list: [],
 };
 
-export function exampleReducer(state: TExampleState = initialState, {type, payload}: TExampleAction = {}): TExampleState {
+export function exampleReducer(state: TInvoiceState = initialState, {type, payload}: TExampleAction = {}): TInvoiceState {
     switch (type) {
         case EXAMPLE_ACTION_TYPE.GET_EXAMPLE_FAIL:
             return {

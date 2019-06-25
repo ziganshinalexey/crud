@@ -14,7 +14,7 @@ export function makeStore({debug, initialState, middlewares, reducer}: TStoreArg
         initialState,
         compose(
             applyMiddleware(...middlewares),
-            debug && window.devToolsExtension ? window.devToolsExtension() : (f) => f
+            debug && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
         )
     );
 }

@@ -1,10 +1,9 @@
 // @flow
 import React from 'react';
-import {ExampleContainer} from 'modules/example/containers/ExampleContainer';
+import {InvoicesLayout} from 'modules/invoices/components/InvoicesLayout';
 
 export const MainRoute = () => (
     <div>
-        Main content
-        <ExampleContainer />
+        <InvoicesLayout />
     </div>
 );

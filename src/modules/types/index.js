@@ -1,19 +1,20 @@
 // @flow
+import type {TInvoiceState} from 'modules/invoices/reducers/invoices';
+import type {InvoiceApi} from 'modules/invoices/services/api';
 
-import type {TExampleState} from 'modules/example/reducers/example';
-import type {IExampleApi} from 'modules/example/services/ExampleApi';
-
-// TODO: from extra args
+// from extra args
 type TExtraArgs = {
-    exampleApi: IExampleApi,
+    invoiceApi: InvoiceApi,
 };
+
 type TPromiseAction = Promise<Object>;
 type TGetState = () => any;
 type TDispatch = (action: Object | TThunkAction | TPromiseAction | Array<Object>) => any;
 export type TThunkAction = (dispatch: TDispatch, getState: TGetState, extraArgs: TExtraArgs) => any;
-// TODO: from root reducer
+
+// from root reducer
 export type TRootState = {
-    example: {
-        example: TExampleState,
+    invoice: {
+        invoice: TInvoiceState,
     },
 };
