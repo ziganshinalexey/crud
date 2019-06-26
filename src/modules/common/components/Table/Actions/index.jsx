@@ -5,7 +5,7 @@ import styles from 'modules/common/components/Table/styles.local.less';
 
 type TProps = {
     id: string,
-    onDelete: (id: string) => void,
+    onDelete: (id: string) => Promise<any>,
 };
 
 const Actions = (props: TProps) => {

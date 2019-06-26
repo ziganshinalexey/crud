@@ -1,7 +1,49 @@
 // @flow
 import {INVOICE_ACTION_TYPE} from 'modules/invoices/constants';
 import type {TThunkAction} from 'modules/types';
-import type {TInvoiceItem, TInvoiceItemId} from 'modules/invoices/reducers/invoices';
+import type {TInvoiceData, TInvoiceItem, TInvoiceItemId} from 'modules/invoices/reducers/invoices';
+
+const dataKeys = [
+    {backendName: 'id', frontendName: 'id'},
+    {backendName: 'number', frontendName: 'number'},
+    {backendName: 'date_created', frontendName: 'dateCreated'},
+    {backendName: 'date_supply', frontendName: 'dateSupply'},
+    {backendName: 'comment', frontendName: 'comment'},
+];
+
+const Direction = {
+    Backend: 'backendName',
+    Frontend: 'frontendName',
+};
+
+type TInvoice = TInvoiceData | TInvoiceItem;
+
+// direction = frontendName | backendName
+function renameKeys(data: TInvoice, keys: Array<Object>, direction: string) {
+    if (data.constructor === Array) {
+        const renameKeys = data.map((dataItem) =>
+            Object.keys(dataItem).reduce(
+                (acc, item, index) => ({
+                    ...acc,
+                    ...{[keys[index][direction]]: dataItem[item]},
+                }),
+                {}
+            )
+        );
+        return renameKeys;
+    } else if (data.constructor === Object) {
+        const renameKeys = Object.keys(data).reduce(
+            (acc, item, index) => ({
+                ...acc,
+                ...{[keys[index][direction]]: data[item]},
+            }),
+            {}
+        );
+        return renameKeys;
+    } else {
+        return data;
+    }
+}
 
 // ------------ GET --------------
 function getInvoiceStart() {
@@ -21,7 +63,8 @@ export function getInvoice(): TThunkAction {
     return async (dispatch, getState, {invoiceApi}) => {
         dispatch(getInvoiceStart());
         const data = await invoiceApi.getInvoice();
-        dispatch(getInvoiceSuccess(data));
+        const frontendData = renameKeys(data, dataKeys, Direction.Frontend);
+        dispatch(getInvoiceSuccess(frontendData));
     };
 }
 
@@ -42,8 +85,10 @@ function createInvoiceSuccess(newInvoice) {
 export function createInvoice(invoice: TInvoiceItem): TThunkAction {
     return async (dispatch, getState, {invoiceApi}) => {
         dispatch(createInvoiceStart());
-        const newInvoice = await invoiceApi.createInvoice(invoice);
-        dispatch(createInvoiceSuccess(newInvoice));
+        const backendInvoice = renameKeys(invoice, dataKeys, Direction.Backend);
+        const newInvoice = await invoiceApi.createInvoice(backendInvoice);
+        const frontendInvoice = renameKeys(newInvoice, dataKeys, Direction.Frontend);
+        dispatch(createInvoiceSuccess(frontendInvoice));
     };
 }
 
@@ -86,8 +131,9 @@ function updateInvoiceSuccess(invoiceToUpdate) {
 export const updateInvoice = (invoice: TInvoiceItem): TThunkAction => {
     return async (dispatch, getState, {invoiceApi}) => {
         dispatch(updateInvoiceStart());
-        const updatedInvoice = await invoiceApi.updateInvoice(invoice);
-        // mapping
-        dispatch(updateInvoiceSuccess(updatedInvoice));
+        const backendInvoice = renameKeys(invoice, dataKeys, Direction.Backend);
+        const updatedInvoice = await invoiceApi.updateInvoice(backendInvoice);
+        const frontendInvoice = renameKeys(updatedInvoice, dataKeys, Direction.Frontend);
+        dispatch(updateInvoiceSuccess(frontendInvoice));
     };
 };

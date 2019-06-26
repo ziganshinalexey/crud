@@ -5,6 +5,7 @@ import {createInvoice, updateInvoice} from 'modules/invoices/actions';
 import type {TInvoiceItem} from 'modules/invoices/reducers/invoices';
 import * as Yup from 'yup';
 import {Form} from 'modules/common/components/Form';
+// import type {} from '';
 import styles from 'modules/common/components/Form/styles.local.less';
 
 type TProps = {
@@ -20,10 +21,10 @@ const validDate = {
 
 const invoiceSchema = Yup.object().shape({
     comment: Yup.string(),
-    date_created: Yup.date()
+    dateCreated: Yup.date()
         .max(new Date(validDate.maxDate), `Date created should be equal or earlier than ${validDate.maxDate}`)
         .min(validDate.minDate, `Date created should be equal or later than ${validDate.minDate}`),
-    date_supply: Yup.date()
+    dateSupply: Yup.date()
         .max(new Date(validDate.maxDate), `Date supply should be equal or earlier than ${validDate.maxDate}`)
         .min(validDate.minDate, `Date supply should be equal or later than ${validDate.minDate}`),
     number: Yup.string(),
@@ -44,9 +45,9 @@ const fieldList = [
     },
     {
         className: styles.form_input,
-        id: 'date_created',
+        id: 'dateCreated',
         label: 'Date created',
-        name: 'date_created',
+        name: 'dateCreated',
         onBlur: true,
         onFocus: true,
         placeholder: 'Select date',
@@ -56,9 +57,9 @@ const fieldList = [
     },
     {
         className: styles.form_input,
-        id: 'date_supply',
+        id: 'dateSupply',
         label: 'Date supply',
-        name: 'date_supply',
+        name: 'dateSupply',
         onBlur: true,
         onFocus: true,
         placeholder: 'Select date',

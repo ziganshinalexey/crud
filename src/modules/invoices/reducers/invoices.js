@@ -5,8 +5,8 @@ export type TInvoiceItemId = string;
 
 export type TInvoiceItem = {
     comment: string,
-    date_created: string,
-    date_supply: string,
+    dateCreated: string,
+    dateSupply: string,
     id: TInvoiceItemId,
     name: string,
 };

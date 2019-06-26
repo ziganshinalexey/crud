@@ -24,8 +24,8 @@ class TableContainer extends Component<TProps> {
         const data = this.props.data;
         const columns = [
             {
-                dataIndex: 'date_created',
-                key: 'date_created',
+                dataIndex: 'dateCreated',
+                key: 'dateCreated',
                 title: 'Create',
             },
             {
@@ -34,8 +34,8 @@ class TableContainer extends Component<TProps> {
                 title: 'Number',
             },
             {
-                dataIndex: 'date_supply',
-                key: 'date_supply',
+                dataIndex: 'dateSupply',
+                key: 'dateSupply',
                 title: 'Supply',
             },
             {

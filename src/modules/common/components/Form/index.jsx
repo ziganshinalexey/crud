@@ -17,7 +17,7 @@ type TProps = {
     data?: TInvoiceItem,
     dataList: TInvoiceData,
     fieldList: Array<Object>,
-    handleSubmit: (Object) => void,
+    handleSubmit: (TInvoiceItem) => void,
     history: Object,
     updateItem: typeof updateItem,
     validationSchema: Yup.object,
@@ -60,8 +60,8 @@ class ActionForm extends React.Component<TProps> {
                                     />
                                 </div>
                             ))}
-                            {errors.date_created && touched.date_created && <div className={styles.input_feedback}>{errors.date_created}</div>}
-                            {errors.date_supply && touched.date_supply && <div className={styles.input_feedback}>{errors.date_supply}</div>}
+                            {errors.dateCreated && touched.dateCreated && <div className={styles.input_feedback}>{errors.dateCreated}</div>}
+                            {errors.dateSupply && touched.dateSupply && <div className={styles.input_feedback}>{errors.dateSupply}</div>}
                             <div className={styles.form_button_wrapper}>
                                 <Button className={styles.button} disabled={isSubmitting} type="submit">
                                     Save

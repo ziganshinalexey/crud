@@ -3,6 +3,7 @@
     "dependencies": {
         "@babel/polyfill": "7.4.0",
         "antd": "^3.19.7",
+        "camelcase-keys": "^6.0.0",
         "classnames": "^2.2.6",
         "flow-typed": "^2.5.2",
         "formik": "^1.5.7",
@@ -17,6 +18,7 @@
         "redux": "^4.0.1",
         "redux-thunk": "^2.3.0",
         "reselect": "^4.0.0",
+        "snakecase-keys": "^3.1.0",
         "whatwg-fetch": "^3.0.0",
         "yup": "^0.27.0"
     },
