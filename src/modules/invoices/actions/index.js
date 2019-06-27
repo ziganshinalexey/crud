@@ -3,13 +3,21 @@ import {INVOICE_ACTION_TYPE} from 'modules/invoices/constants';
 import type {TThunkAction} from 'modules/types';
 import type {TInvoiceData, TInvoiceItem, TInvoiceItemId} from 'modules/invoices/reducers/invoices';
 
-const dataKeys = [
-    {backendName: 'id', frontendName: 'id'},
-    {backendName: 'number', frontendName: 'number'},
-    {backendName: 'date_created', frontendName: 'dateCreated'},
-    {backendName: 'date_supply', frontendName: 'dateSupply'},
-    {backendName: 'comment', frontendName: 'comment'},
-];
+function toSnakeCase(str) {
+    return str
+        .replace(/(?:^|\.?)([A-Z])/g, function(x, y) {
+            return '_' + y.toLowerCase();
+        })
+        .replace(/^_/, '');
+}
+
+const dataKeys = {
+    comment: {backendName: 'comment', frontendName: 'comment'},
+    date_created: {backendName: 'date_created', frontendName: 'dateCreated'},
+    date_supply: {backendName: 'date_supply', frontendName: 'dateSupply'},
+    id: {backendName: 'id', frontendName: 'id'},
+    number: {backendName: 'number', frontendName: 'number'},
+};
 
 const Direction = {
     Backend: 'backendName',
@@ -19,27 +27,27 @@ const Direction = {
 type TInvoice = TInvoiceData | TInvoiceItem;
 
 // direction = frontendName | backendName
-function renameKeys(data: TInvoice, keys: Array<Object>, direction: string) {
+function renameKeys(data: TInvoice, keys: Object, direction: string) {
     if (data.constructor === Array) {
-        const renameKeys = data.map((dataItem) =>
+        const renamedKeys = data.map((dataItem) =>
             Object.keys(dataItem).reduce(
-                (acc, item, index) => ({
+                (acc, item) => ({
                     ...acc,
-                    ...{[keys[index][direction]]: dataItem[item]},
+                    ...{[keys[toSnakeCase(item)][direction]]: dataItem[item]},
                 }),
                 {}
             )
         );
-        return renameKeys;
+        return renamedKeys;
     } else if (data.constructor === Object) {
-        const renameKeys = Object.keys(data).reduce(
-            (acc, item, index) => ({
+        const renamedKeys = Object.keys(data).reduce(
+            (acc, item) => ({
                 ...acc,
-                ...{[keys[index][direction]]: data[item]},
+                ...{[keys[toSnakeCase(item)][direction]]: data[item]},
             }),
             {}
         );
-        return renameKeys;
+        return renamedKeys;
     } else {
         return data;
     }

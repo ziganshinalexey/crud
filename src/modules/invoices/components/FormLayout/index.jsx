@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import {withRouter} from 'react-router-dom';
+import type {RouterHistory} from 'react-router-dom';
 import {createInvoice, updateInvoice} from 'modules/invoices/actions';
 import type {TInvoiceItem} from 'modules/invoices/reducers/invoices';
 import * as Yup from 'yup';
@@ -10,7 +11,7 @@ import styles from 'modules/common/components/Form/styles.local.less';
 
 type TProps = {
     data?: TInvoiceItem,
-    history: Object,
+    history: RouterHistory,
     onSubmit: typeof createInvoice | typeof updateInvoice,
 };
 
