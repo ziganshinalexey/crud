@@ -12,6 +12,7 @@ const dataKeys = [
 ];
 
 type TDirectionName = 'frontendName' | 'backendName';
+
 type TMapDirectionItem = {
     from: TDirectionName,
     to: TDirectionName,
@@ -27,8 +28,6 @@ const mapDirection: {[direction: string]: TMapDirectionItem} = {
         to: 'frontendName',
     },
 };
-
-// type TInvoice = TInvoiceData | TInvoiceItem;
 
 function mapNames(data, direction: TMapDirectionItem) {
     if (!direction) {
