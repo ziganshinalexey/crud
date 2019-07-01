@@ -4,7 +4,6 @@ import React from 'react';
 import * as Yup from 'yup';
 import {Formik} from 'formik';
 import {withRouter} from 'react-router-dom';
-import type {RouterHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {createInvoice as createItem} from 'modules/invoices/actions/';
@@ -19,7 +18,6 @@ type TProps = {
     dataList: TInvoiceData,
     fieldList: Array<Object>,
     handleSubmit: (TInvoiceItem) => void,
-    history: RouterHistory,
     updateItem: typeof updateItem,
     validationSchema: Yup.object,
 };

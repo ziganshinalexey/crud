@@ -1,7 +1,7 @@
 // @flow
 import {INVOICE_ACTION_TYPE} from 'modules/invoices/constants';
 import type {TThunkAction} from 'modules/types';
-import type {TInvoiceItem, TInvoiceItemId} from 'modules/invoices/reducers/invoices';
+import type {TInvoiceData, TInvoiceItem, TInvoiceItemId} from 'modules/invoices/reducers/invoices';
 
 const dataKeys = [
     {backendName: 'comment', frontendName: 'comment'},
@@ -47,7 +47,7 @@ function mapNames(data, direction: TMapDirectionItem) {
     }, {});
 }
 
-function mapListNames(list, direction: TMapDirectionItem) {
+function mapListNames(list, direction: TMapDirectionItem): TInvoiceData {
     return list.map((item) => mapNames(item, direction));
 }
 
