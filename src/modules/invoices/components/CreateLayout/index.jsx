@@ -16,7 +16,7 @@ class CreateContainer extends React.Component<TProps> {
     render() {
         return (
             <>
-                <MainHeader text="Create" />
+                <MainHeader>Create</MainHeader>
                 <Wrapper>
                     <FormLayout onSubmit={this.props.createItem} />
                 </Wrapper>

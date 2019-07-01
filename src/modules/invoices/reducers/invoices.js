@@ -3,13 +3,23 @@ import {INVOICE_ACTION_TYPE} from 'modules/invoices/constants/';
 
 export type TInvoiceItemId = string;
 
-export type TInvoiceItem = {
+export type TInvoiceItemFrontend = {
     comment: string,
     dateCreated: string,
     dateSupply: string,
     id: TInvoiceItemId,
     name: string,
 };
+
+export type TInvoiceItemBackend = {
+    comment: string,
+    date_created: string,
+    date_supply: string,
+    id: TInvoiceItemId,
+    name: string,
+};
+
+export type TInvoiceItem = TInvoiceItemFrontend | TInvoiceItemBackend;
 
 export type TInvoiceData = Array<TInvoiceItem>;
 

@@ -4,7 +4,6 @@ import styles from './styles.local.less';
 
 type TProps = {
     children?: React.Node,
-    text: string,
 };
 
 export const Header = ({children}: TProps) => {

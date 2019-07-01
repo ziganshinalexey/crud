@@ -6,7 +6,7 @@ export class InvoiceApi {
         return await (await fetch('http://localhost:3000/invoices')).json();
     }
 
-    async createInvoice(data: TInvoiceItem): Promise<{data: TInvoiceItem}> {
+    async createInvoice(data: TInvoiceItem): Promise<TInvoiceItem> {
         return await (await fetch('http://localhost:3000/invoices', {
             body: JSON.stringify(data),
             headers: {
@@ -16,7 +16,7 @@ export class InvoiceApi {
         })).json();
     }
 
-    async updateInvoice(data: TInvoiceItem): Promise<{data: TInvoiceItem}> {
+    async updateInvoice(data: TInvoiceItem): Promise<TInvoiceItem> {
         const invoiceId = data.id;
         return await (await fetch(`http://localhost:3000/invoices/${invoiceId}`, {
             body: JSON.stringify(data),

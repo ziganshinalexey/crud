@@ -11,7 +11,7 @@ export const AppRouter = () => (
         <Switch>
             <Route component={MainRoute} exact path="/" />
             <Route component={CreateRoute} path="/create" />
-            <Route component={EditRoute} path="/edit/:invoiceID" />
+            <Route component={EditRoute} path="/edit/:invoiceId" />
             <Route component={NoMatchRouter} />
         </Switch>
     </BrowserRouter>

@@ -4,9 +4,8 @@ import styles from './styles.local.less';
 
 type TProps = {
     children?: React.Node,
-    text: string,
 };
 
-export const MainHeader = ({text}: TProps) => {
-    return <div className={styles.main_header}>{text}</div>;
+export const MainHeader = ({children}: TProps) => {
+    return <div className={styles.main_header}>{children}</div>;
 };

@@ -2,39 +2,27 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
-import type {TInvoiceData, TInvoiceItem} from 'modules/invoices/reducers/invoices';
+import type {TInvoiceItem} from 'modules/invoices/reducers/invoices';
 import {withRouter} from 'react-router-dom';
-import {getInvoice as getItemList} from 'modules/invoices/actions';
 import {updateInvoice as updateItem} from 'modules/invoices/actions';
-import {selectInvoiceById, selectInvoiceData, selectInvoiceIsLoading} from 'modules/invoices/selectors';
+import {selectInvoiceById} from 'modules/invoices/selectors';
 import {MainHeader} from 'modules/common/components/MainHeader';
 import {Wrapper} from 'modules/common/components/Wrapper';
 import {FormLayout} from 'modules/invoices/components/FormLayout';
 
 type TProps = {
-    getItemList: typeof getItemList,
-    invoiceData: TInvoiceItem,
-    invoiceList: TInvoiceData,
-    invoiceListIsLoading: boolean,
+    dataItem: TInvoiceItem,
     updateItem: typeof updateItem,
 };
 
 class EditContainer extends React.Component<TProps> {
-    componentDidMount() {
-        const {getItemList, invoiceList, invoiceListIsLoading} = this.props;
-
-        if (!invoiceList.length && !invoiceListIsLoading) {
-            getItemList();
-        }
-    }
-
     render() {
-        const {invoiceData, updateItem} = this.props;
+        const {dataItem, updateItem} = this.props;
         return (
             <>
-                <MainHeader text="Edit" />
+                <MainHeader>Edit</MainHeader>
                 <Wrapper>
-                    <FormLayout data={invoiceData} onSubmit={updateItem} />
+                    <FormLayout data={dataItem} onSubmit={updateItem} />
                 </Wrapper>
             </>
         );
@@ -48,16 +36,13 @@ export const EditLayout = compose(
             state,
             {
                 match: {
-                    params: {invoiceID: id},
+                    params: {invoiceId: id},
                 },
             }
         ) => ({
-            invoiceData: selectInvoiceById(state, {id}),
-            invoiceList: selectInvoiceData(state),
-            invoiceListIsLoading: selectInvoiceIsLoading(state),
+            dataItem: selectInvoiceById(state, {id}),
         }),
         {
-            getItemList,
             updateItem,
         }
     )

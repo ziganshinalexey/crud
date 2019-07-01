@@ -1,56 +1,55 @@
 // @flow
 import {INVOICE_ACTION_TYPE} from 'modules/invoices/constants';
 import type {TThunkAction} from 'modules/types';
-import type {TInvoiceData, TInvoiceItem, TInvoiceItemId} from 'modules/invoices/reducers/invoices';
+import type {TInvoiceItem, TInvoiceItemId} from 'modules/invoices/reducers/invoices';
 
-function toSnakeCase(str) {
-    return str
-        .replace(/(?:^|\.?)([A-Z])/g, function(x, y) {
-            return '_' + y.toLowerCase();
-        })
-        .replace(/^_/, '');
-}
+const dataKeys = [
+    {backendName: 'comment', frontendName: 'comment'},
+    {backendName: 'date_created', frontendName: 'dateCreated'},
+    {backendName: 'date_supply', frontendName: 'dateSupply'},
+    {backendName: 'id', frontendName: 'id'},
+    {backendName: 'number', frontendName: 'number'},
+];
 
-const dataKeys = {
-    comment: {backendName: 'comment', frontendName: 'comment'},
-    date_created: {backendName: 'date_created', frontendName: 'dateCreated'},
-    date_supply: {backendName: 'date_supply', frontendName: 'dateSupply'},
-    id: {backendName: 'id', frontendName: 'id'},
-    number: {backendName: 'number', frontendName: 'number'},
+type TDirectionName = 'frontendName' | 'backendName';
+type TMapDirectionItem = {
+    from: TDirectionName,
+    to: TDirectionName,
 };
 
-const Direction = {
-    Backend: 'backendName',
-    Frontend: 'frontendName',
+const mapDirection: {[direction: string]: TMapDirectionItem} = {
+    backend: {
+        from: 'frontendName',
+        to: 'backendName',
+    },
+    frontend: {
+        from: 'backendName',
+        to: 'frontendName',
+    },
 };
 
-type TInvoice = TInvoiceData | TInvoiceItem;
+// type TInvoice = TInvoiceData | TInvoiceItem;
 
-// direction = frontendName | backendName
-function renameKeys(data: TInvoice, keys: Object, direction: string) {
-    if (data.constructor === Array) {
-        const renamedKeys = data.map((dataItem) =>
-            Object.keys(dataItem).reduce(
-                (acc, item) => ({
-                    ...acc,
-                    ...{[keys[toSnakeCase(item)][direction]]: dataItem[item]},
-                }),
-                {}
-            )
-        );
-        return renamedKeys;
-    } else if (data.constructor === Object) {
-        const renamedKeys = Object.keys(data).reduce(
-            (acc, item) => ({
-                ...acc,
-                ...{[keys[toSnakeCase(item)][direction]]: data[item]},
-            }),
-            {}
-        );
-        return renamedKeys;
-    } else {
+function mapNames(data, direction: TMapDirectionItem) {
+    if (!direction) {
         return data;
     }
+
+    const {from, to} = direction;
+
+    return Object.entries(data).reduce((acc, [name, value]) => {
+        const mapData = dataKeys.find((item) => item[from] === name);
+        const newName = mapData && mapData[to] ? mapData[to] : name;
+
+        return {
+            ...acc,
+            [newName]: value,
+        };
+    }, {});
+}
+
+function mapListNames(list, direction: TMapDirectionItem) {
+    return list.map((item) => mapNames(item, direction));
 }
 
 // ------------ GET --------------
@@ -71,7 +70,7 @@ export function getInvoice(): TThunkAction {
     return async (dispatch, getState, {invoiceApi}) => {
         dispatch(getInvoiceStart());
         const data = await invoiceApi.getInvoice();
-        const frontendData = renameKeys(data, dataKeys, Direction.Frontend);
+        const frontendData = mapListNames(data, mapDirection.frontend);
         dispatch(getInvoiceSuccess(frontendData));
     };
 }
@@ -93,9 +92,9 @@ function createInvoiceSuccess(newInvoice) {
 export function createInvoice(invoice: TInvoiceItem): TThunkAction {
     return async (dispatch, getState, {invoiceApi}) => {
         dispatch(createInvoiceStart());
-        const backendInvoice = renameKeys(invoice, dataKeys, Direction.Backend);
+        const backendInvoice = mapNames(invoice, mapDirection.backend);
         const newInvoice = await invoiceApi.createInvoice(backendInvoice);
-        const frontendInvoice = renameKeys(newInvoice, dataKeys, Direction.Frontend);
+        const frontendInvoice = mapNames(newInvoice, mapDirection.frontend);
         dispatch(createInvoiceSuccess(frontendInvoice));
     };
 }
@@ -139,9 +138,9 @@ function updateInvoiceSuccess(invoiceToUpdate) {
 export const updateInvoice = (invoice: TInvoiceItem): TThunkAction => {
     return async (dispatch, getState, {invoiceApi}) => {
         dispatch(updateInvoiceStart());
-        const backendInvoice = renameKeys(invoice, dataKeys, Direction.Backend);
+        const backendInvoice = mapNames(invoice, mapDirection.backend);
         const updatedInvoice = await invoiceApi.updateInvoice(backendInvoice);
-        const frontendInvoice = renameKeys(updatedInvoice, dataKeys, Direction.Frontend);
+        const frontendInvoice = mapNames(updatedInvoice, mapDirection.frontend);
         dispatch(updateInvoiceSuccess(frontendInvoice));
     };
 };

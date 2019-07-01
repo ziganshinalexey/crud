@@ -10,10 +10,10 @@
             "flowVersion": "0.92"
         },
         "flowtype": {
-            "onlyFilesWithFlowAnnotation": true
+            "onlyFilesWithFlowAnnotation": false
         }
     },
     "rules": {
-        "flowtype/no-types-missing-file-annotation": 2
+        "flowtype/no-types-missing-file-annotation": 0
     }
 }
