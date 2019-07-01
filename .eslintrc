@@ -8,12 +8,6 @@
         "react": {
             "version": "16.7",
             "flowVersion": "0.92"
-        },
-        "flowtype": {
-            "onlyFilesWithFlowAnnotation": false
         }
-    },
-    "rules": {
-        "flowtype/no-types-missing-file-annotation": 0
     }
 }
