@@ -1,39 +1,40 @@
+@delete-button-bg: #8c8c8c;
+@edit-button-bg: #b1baf8;
+
 @table-bg: #fff;
-@table-text-color: #7a7a7a;
 @table-header-bg: rgba(217, 225, 228, 0.66);
+@table-text-color: #7a7a7a;
 
 .table {
-  text-align: left;
-  font-size: 16px;
-  color: @table-text-color;
   background: @table-bg;
+  color: @table-text-color;
+  font-size: 16px;
+  text-align: left;
 
-  .ant-table-thead{
+  .ant-table-thead {
     background-color: @table-header-bg;
-    font-weight: bold;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
+    font-weight: bold;
   }
 
-  @edit-button-bg: #b1baf8;
-  @delete-button-bg: #8c8c8c;
-
-  .edit_button, .delete_button {
-    padding: 7px 10px;
-    display: inline-block;
-    text-decoration: none;
+  .edit_button,
+  .delete_button {
     border-radius: 5px;
-    margin: 5px;
-    font-size: 14px;
-    box-shadow: 2px 2px 5px #b7b7b7;
     border: none;
+    box-shadow: 2px 2px 5px #b7b7b7;
     cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    margin: 5px;
+    padding: 7px 10px;
+    text-decoration: none;
   }
-  .edit_button{
+  .edit_button {
     background-color: @edit-button-bg;
     color: #fff;
   }
-  .delete_button{
+  .delete_button {
     background-color: @delete-button-bg;
     color: #fff;
   }

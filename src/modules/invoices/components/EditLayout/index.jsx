@@ -9,6 +9,7 @@ import {selectInvoiceById} from 'modules/invoices/selectors';
 import {MainHeader} from 'modules/common/components/MainHeader';
 import {Wrapper} from 'modules/common/components/Wrapper';
 import {FormLayout} from 'modules/invoices/components/FormLayout';
+import {itemId} from 'app/constants';
 
 type TProps = {
     dataItem: TInvoiceItem,
@@ -18,6 +19,7 @@ type TProps = {
 class EditContainer extends React.Component<TProps> {
     render() {
         const {dataItem, updateItem} = this.props;
+
         return (
             <>
                 <MainHeader>Edit</MainHeader>
@@ -36,7 +38,7 @@ export const EditLayout = compose(
             state,
             {
                 match: {
-                    params: {invoiceId: id},
+                    params: {[itemId]: id},
                 },
             }
         ) => ({

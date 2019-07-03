@@ -1,63 +1,57 @@
 // @flow
 import {Button} from 'modules/common/components/Button';
-import React from 'react';
-import * as Yup from 'yup';
+import React, {SyntheticEvent} from 'react';
 import {Formik} from 'formik';
-import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {compose} from 'redux';
-import {createInvoice as createItem} from 'modules/invoices/actions/';
-import {updateInvoice as updateItem} from 'modules/invoices/actions/';
-import type {TInvoiceData, TInvoiceItem} from 'modules/invoices/reducers/invoices';
-import {selectInvoiceData} from 'modules/invoices/selectors/';
+import * as Yup from 'yup';
 import styles from './styles.local.less';
 
 type TProps = {
-    createItem: typeof createItem,
-    data?: TInvoiceItem,
-    dataList: TInvoiceData,
+    data?: Object,
     fieldList: Array<Object>,
-    handleSubmit: (TInvoiceItem) => void,
-    updateItem: typeof updateItem,
+    handleSubmit: (Object) => void,
     validationSchema: Yup.object,
 };
 
-class ActionForm extends React.Component<TProps> {
-    _onFocus = (e) => {
-        e.currentTarget.type = 'date';
+export class Form extends React.Component<TProps> {
+    onFocus = (event: SyntheticEvent) => {
+        event.currentTarget.type = 'date';
     };
 
-    _onBlur = (e) => {
-        e.currentTarget.type = 'text';
+    onBlur = (event: SyntheticEvent) => {
+        event.currentTarget.type = 'text';
     };
 
     renderForm = () => {
         const {data, fieldList, handleSubmit: handleSubmitGlobal, validationSchema} = this.props;
         return (
             <Formik enableReinitialize initialValues={data} onSubmit={handleSubmitGlobal} validationSchema={validationSchema}>
-                {({values, touched, errors, handleSubmit, handleChange, isSubmitting}) => (
+                {({values, errors, handleSubmit, handleChange, isSubmitting}) => (
                     <form className={styles.form} onSubmit={handleSubmit}>
-                        {fieldList.map((field) => (
-                            <div className={field.wrapperClassName} key={field.id}>
-                                <label className={styles.form_label} htmlFor={field.id}>
-                                    {field.label}
+                        {fieldList.map(({className, id, label, wrapperClassName, name, onBlur, onFocus, placeholder, required, type}) => (
+                            <div className={wrapperClassName} key={id}>
+                                <label className={styles.form_label} htmlFor={id}>
+                                    {label}
                                 </label>
                                 <input
-                                    className={field.className}
-                                    id={field.id}
-                                    name={field.name}
-                                    onBlur={field.onBlur ? this._onBlur : null}
+                                    className={className}
+                                    id={id}
+                                    name={name}
+                                    onBlur={onBlur ? this.onBlur : null}
                                     onChange={handleChange}
-                                    onFocus={field.onFocus ? this._onFocus : null}
-                                    placeholder={field.placeholder}
-                                    required={field.required}
-                                    type={field.type}
-                                    value={values[field.name] || ''}
+                                    onFocus={onFocus ? this.onFocus : null}
+                                    placeholder={placeholder}
+                                    required={required}
+                                    type={type}
+                                    value={values[name] || ''}
                                 />
                             </div>
                         ))}
-                        {errors.dateCreated && touched.dateCreated && <div className={styles.input_feedback}>{errors.dateCreated}</div>}
-                        {errors.dateSupply && touched.dateSupply && <div className={styles.input_feedback}>{errors.dateSupply}</div>}
+
+                        {Object.keys(errors).map((errorItem) => (
+                            <div className={styles.input_feedback} key={errorItem}>
+                                {errors[errorItem]}
+                            </div>
+                        ))}
                         <div className={styles.form_button_wrapper}>
                             <Button className={styles.button} disabled={isSubmitting} type="submit">
                                 Save
@@ -73,16 +67,3 @@ class ActionForm extends React.Component<TProps> {
         return this.renderForm();
     }
 }
-
-export const Form = compose(
-    withRouter,
-    connect(
-        (state) => ({
-            dataList: selectInvoiceData(state),
-        }),
-        {
-            createItem,
-            updateItem,
-        }
-    )
-)(ActionForm);

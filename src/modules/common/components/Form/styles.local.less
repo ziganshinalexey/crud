@@ -1,75 +1,75 @@
+@active-input-color: #9e9e9e;
+@no-active-input-color: #d7d7d7;
+@button-bg: #4362bc;
+
 .form {
   border: 1px solid #d8d8d8;
   padding: 30px;
 }
 
-@active-input-color: #9e9e9e;
-@no-active-input-color: #d7d7d7;
-
-.form_input_wrapper, .form_textarea_wrapper{
+.form_input_wrapper,
+.form_textarea_wrapper {
   margin-bottom: 30px;
   padding-right: 20px;
   width: auto;
 }
 
-@media(min-width: 700px){
-  .form_input_wrapper{
-    width: 50%;
+@media(min-width: 700px) {
+  .form_input_wrapper {
     display: inline-block;
+    width: 50%;
   }
-  .form_textarea_wrapper{
+  .form_textarea_wrapper {
     display: block;
   }
 }
 
-.form_input{
-  width: 100%;
-  height: 35px;
-  border: @no-active-input-color solid 1px;
+.form_input {
   border-radius: 4px;
-  padding: 3px 10px;
+  border: @no-active-input-color solid 1px;
   font-size: 15px;
+  height: 35px;
+  padding: 3px 10px;
+  width: 100%;
 }
 
 .form_label {
-  font-size: 18px;
   color: #1f1f1f;
-  margin-bottom: 15px;
   display: block;
+  font-size: 18px;
+  margin-bottom: 15px;
 }
 
 .form_textarea {
-  width: 100%;
-  border: @no-active-input-color solid 1px;
   border-radius: 4px;
-  padding: 3px 10px;
+  border: @no-active-input-color solid 1px;
   font-size: 15px;
   height: 5rem;
+  padding: 3px 10px;
+  width: 100%;
 }
-
-@button-bg: #4362bc;
 
 .button {
-  color: #fff;
-  font-size: 16px;
   background-color: @button-bg;
-  height: 40px;
-  width: auto;
   border-radius: 7px;
-  padding: 5px 30px;
-  text-align: center;
   border: none;
+  color: #fff;
   cursor: pointer;
   display: block;
+  font-size: 16px;
+  height: 40px;
+  padding: 5px 30px;
+  text-align: center;
+  width: auto;
 }
 
-.form_button_wrapper{
+.form_button_wrapper {
   display: flex;
   flex-flow: row-reverse;
   padding-right: 20px;
 }
 
-.input_feedback{
+.input_feedback {
   font-size: 14px;
   color: #a60000;
 }
