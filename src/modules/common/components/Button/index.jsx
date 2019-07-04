@@ -16,8 +16,6 @@ function getButtonStyle(actionType) {
             return styles.edit_button;
         case 'delete':
             return styles.delete_button;
-        case 'default':
-            return styles.container;
         default:
             return styles.container;
     }

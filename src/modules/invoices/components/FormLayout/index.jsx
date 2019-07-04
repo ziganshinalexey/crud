@@ -15,8 +15,8 @@ type TProps = {
 };
 
 const validDate = {
-    maxDate: '2100-01-01',
-    minDate: '1900-01-01',
+    maxDate: '2111-01-01',
+    minDate: '1951-01-01',
 };
 
 const invoiceSchema = Yup.object().shape({
