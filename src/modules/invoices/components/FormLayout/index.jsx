@@ -90,8 +90,7 @@ class FormContainer extends React.Component<TProps> {
     };
 
     render() {
-        const {data, onSubmit} = this.props;
-        return <Form data={data} fieldList={fieldList} handleSubmit={this.handleSubmit} onSubmit={onSubmit} validationSchema={invoiceSchema} />;
+        return <Form data={this.props.data} fieldList={fieldList} handleSubmit={this.handleSubmit} validationSchema={invoiceSchema} />;
     }
 }
 

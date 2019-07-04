@@ -148,9 +148,7 @@ const reducer = {
     },
 };
 
-export function invoiceReducer(state: TInvoiceState = initialState, action: TInvoiceAction = {}) {
-    const {payload, type} = action;
-
+export function invoiceReducer(state: TInvoiceState = initialState, {payload, type}: TInvoiceAction = {}) {
     if (reducer) {
         return type in reducer ? reducer[type](state, {payload, type}) : state;
     }

@@ -8,7 +8,7 @@ import styles from './styles.local.less';
 type TProps = {
     data?: Object,
     fieldList: Array<Object>,
-    handleSubmit: (Object) => Promise<any>,
+    handleSubmit: Function,
     validationSchema: Yup.object,
 };
 

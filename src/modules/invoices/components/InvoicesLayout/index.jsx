@@ -34,8 +34,8 @@ class InvoicesContainer extends Component<TProps> {
         await this.props.deleteItem(id);
     };
 
-    render() {
-        const columns = [
+    getDataColumns = () => {
+        return [
             {
                 dataIndex: 'dateCreated',
                 key: 'dateCreated',
@@ -63,6 +63,10 @@ class InvoicesContainer extends Component<TProps> {
                 title: 'Action',
             },
         ];
+    };
+
+    render() {
+        const columns = this.getDataColumns();
 
         return (
             <>

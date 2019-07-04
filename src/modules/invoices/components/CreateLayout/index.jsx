@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import {selectInvoiceData} from 'modules/invoices/selectors';
 import {createInvoice as createItem} from 'modules/invoices/actions';
 import {MainHeader} from 'modules/common/components/MainHeader';
 import {Wrapper} from 'modules/common/components/Wrapper';
@@ -27,13 +26,7 @@ class CreateContainer extends React.Component<TProps> {
 
 export const CreateLayout = compose(
     connect(
-        (state) => {
-            return {
-                invoices: selectInvoiceData(state),
-            };
-        },
-        {
-            createItem,
-        }
+        null,
+        {createItem}
     )
 )(CreateContainer);

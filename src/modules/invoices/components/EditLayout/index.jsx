@@ -3,7 +3,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import type {TInvoiceItem} from 'modules/invoices/reducers/invoices';
-import {withRouter} from 'react-router-dom';
 import {updateInvoice as updateItem} from 'modules/invoices/actions';
 import {selectInvoiceById} from 'modules/invoices/selectors';
 import {MainHeader} from 'modules/common/components/MainHeader';
@@ -32,7 +31,6 @@ class EditContainer extends React.Component<TProps> {
 }
 
 export const EditLayout = compose(
-    withRouter,
     connect(
         (
             state,
