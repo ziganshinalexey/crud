@@ -3,7 +3,7 @@ import * as React from 'react';
 import styles from './styles.local.less';
 
 type TProps = {
-    actionType: 'edit' | 'delete',
+    actionType: 'default' | 'edit' | 'delete',
     children?: React.Node,
     disabled: boolean,
     onClick: Function,
@@ -16,6 +16,8 @@ function getButtonStyle(actionType) {
             return styles.edit_button;
         case 'delete':
             return styles.delete_button;
+        case 'default':
+            return styles.container;
         default:
             return styles.container;
     }
@@ -32,7 +34,7 @@ export const Button = ({actionType, children, disabled, onClick, type}: TProps) 
 };
 
 Button.defaultProps = {
-    actionType: null,
+    actionType: 'default',
     disabled: false,
     onClick: null,
     type: 'submit',
