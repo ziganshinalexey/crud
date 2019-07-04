@@ -7,7 +7,6 @@ import {getInvoice as getItemList} from 'modules/invoices/actions';
 import {deleteInvoice as deleteItem} from 'modules/invoices/actions/';
 import type {TInvoiceData} from 'modules/invoices/reducers/invoices';
 import {selectInvoiceData, selectInvoiceIsLoading} from 'modules/invoices/selectors/';
-
 import {Table} from 'modules/common/components/Table';
 import Actions from 'modules/common/components/Table/actions';
 import {Header} from 'modules/common/components/Header';

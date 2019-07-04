@@ -7,5 +7,5 @@ type TProps = {
 };
 
 export const Header = ({children}: TProps) => {
-    return <div className={styles.container}>{children}</div>;
+    return <div className={styles.header}>{children}</div>;
 };

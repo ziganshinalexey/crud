@@ -1,14 +1,14 @@
 // @flow
-import {Button} from 'modules/common/components/Button';
 import React, {SyntheticEvent} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {Button} from 'modules/common/components/Button';
 import styles from './styles.local.less';
 
 type TProps = {
     data?: Object,
     fieldList: Array<Object>,
-    handleSubmit: (Object) => void,
+    handleSubmit: (Object) => Promise<any>,
     validationSchema: Yup.object,
 };
 
@@ -53,7 +53,7 @@ export class Form extends React.Component<TProps> {
                             </div>
                         ))}
                         <div className={styles.form_button_wrapper}>
-                            <Button className={styles.button} disabled={isSubmitting} type="submit">
+                            <Button disabled={isSubmitting} type="submit">
                                 Save
                             </Button>
                         </div>

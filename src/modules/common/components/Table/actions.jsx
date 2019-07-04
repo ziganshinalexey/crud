@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
 import {Link} from 'react-router-dom';
-import styles from './styles.local.less';
+import {Button} from 'modules/common/components/Button';
+import buttonStyles from 'modules/common/components/Button/styles.local.less';
 
 type TProps = {
     id: string,
@@ -16,12 +17,12 @@ const Actions = (props: TProps) => {
 
     return (
         <>
-            <Link className={styles.edit_button} to={`edit/${props.id}`}>
+            <Link className={buttonStyles.edit_button} to={`edit/${props.id}`}>
                 Edit
             </Link>
-            <button className={styles.delete_button} onClick={handleDelete}>
+            <Button actionType={'delete'} onClick={handleDelete}>
                 Delete
-            </button>
+            </Button>
         </>
     );
 };
