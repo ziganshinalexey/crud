@@ -19,17 +19,6 @@ const validDate = {
     minDate: '1951-01-01',
 };
 
-const invoiceSchema = Yup.object().shape({
-    comment: Yup.string(),
-    dateCreated: Yup.date()
-        .max(new Date(validDate.maxDate), `Date created should be equal or earlier than ${validDate.maxDate}`)
-        .min(validDate.minDate, `Date created should be equal or later than ${validDate.minDate}`),
-    dateSupply: Yup.date()
-        .max(new Date(validDate.maxDate), `Date supply should be equal or earlier than ${validDate.maxDate}`)
-        .min(validDate.minDate, `Date supply should be equal or later than ${validDate.minDate}`),
-    number: Yup.string(),
-});
-
 const fieldList = [
     {
         className: styles.form_input,
@@ -41,6 +30,7 @@ const fieldList = [
         placeholder: 'Invoice number',
         required: 'required',
         type: 'text',
+        validationSchema: Yup.string(),
         wrapperClassName: styles.form_input_wrapper,
     },
     {
@@ -53,6 +43,9 @@ const fieldList = [
         placeholder: 'Select date',
         required: 'required',
         type: 'text',
+        validationSchema: Yup.date()
+            .max(new Date(validDate.maxDate), `Date created should be equal or earlier than ${validDate.maxDate}`)
+            .min(validDate.minDate, `Date created should be equal or later than ${validDate.minDate}`),
         wrapperClassName: styles.form_input_wrapper,
     },
     {
@@ -65,6 +58,9 @@ const fieldList = [
         placeholder: 'Select date',
         required: 'required',
         type: 'text',
+        validationSchema: Yup.date()
+            .max(new Date(validDate.maxDate), `Date supply should be equal or earlier than ${validDate.maxDate}`)
+            .min(validDate.minDate, `Date supply should be equal or later than ${validDate.minDate}`),
         wrapperClassName: styles.form_input_wrapper,
     },
     {
@@ -77,6 +73,7 @@ const fieldList = [
         placeholder: '',
         required: '',
         type: 'text',
+        validationSchema: Yup.string(),
         wrapperClassName: styles.form_textarea_wrapper,
     },
 ];
@@ -90,7 +87,7 @@ class FormContainer extends React.Component<TProps> {
     };
 
     render() {
-        return <Form data={this.props.data} fieldList={fieldList} handleSubmit={this.handleSubmit} validationSchema={invoiceSchema} />;
+        return <Form data={this.props.data} fieldList={fieldList} handleSubmit={this.handleSubmit} />;
     }
 }
 

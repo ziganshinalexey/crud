@@ -142,7 +142,7 @@ const reducer = {
     [INVOICE_ACTION_TYPE.UPDATE_INVOICE_SUCCESS](state, {payload}) {
         return {
             ...state,
-            data: state.data.reduce((accumulator, item) => [...accumulator, payload.id === item.id ? payload : item], []),
+            data: state.data.reduce((acc, item) => [...acc, payload.id === item.id ? payload : item], []),
             isLoading: false,
         };
     },

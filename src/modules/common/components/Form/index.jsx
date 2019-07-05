@@ -9,7 +9,6 @@ type TProps = {
     data?: Object,
     fieldList: Array<Object>,
     handleSubmit: Function,
-    validationSchema: Yup.object,
 };
 
 export class Form extends React.Component<TProps> {
@@ -21,10 +20,23 @@ export class Form extends React.Component<TProps> {
         event.currentTarget.type = 'text';
     };
 
+    getValidationSchema = (fieldList: Array<Object>) => {
+        return fieldList.reduce(
+            (acc, {name, validationSchema}) => ({
+                validationSchema: {
+                    ...acc.validationSchema,
+                    [name]: validationSchema,
+                },
+            }),
+            {validationSchema: {}}
+        );
+    };
+
     renderForm = () => {
-        const {data, fieldList, handleSubmit: handleSubmitGlobal, validationSchema} = this.props;
+        const {data, fieldList, handleSubmit: handleSubmitGlobal} = this.props;
+        const {validationSchema} = this.getValidationSchema(fieldList);
         return (
-            <Formik enableReinitialize initialValues={data} onSubmit={handleSubmitGlobal} validationSchema={validationSchema}>
+            <Formik enableReinitialize initialValues={data} onSubmit={handleSubmitGlobal} validationSchema={Yup.object().shape(validationSchema)}>
                 {({values, errors, handleSubmit, handleChange, isSubmitting}) => (
                     <form className={styles.form} onSubmit={handleSubmit}>
                         {fieldList.map(({className, id, label, wrapperClassName, name, onBlur, onFocus, placeholder, required, type}) => (
