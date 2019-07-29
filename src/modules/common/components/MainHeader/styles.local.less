@@ -1,0 +1,26 @@
+.main_header {
+  align-items: center;
+  color: #7a7a7a;
+  display: flex;
+  font-size: 30px;
+  font-weight: bolder;
+  margin-bottom: 30px;
+
+  &::before {
+    background-color: rgba(171, 179, 182, 0.51);
+    content: "";
+    display: inline-block;
+    height: 50px;
+    margin-right: 20px;
+    width: 10px;
+  }
+
+  &::after {
+    background-color: rgba(189, 199, 202, 0.87);
+    content: "";
+    display: inline-block;
+    height: 1px;
+    margin-left: 20px;
+    width: 100%;
+  }
+}

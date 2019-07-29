@@ -1,0 +1,47 @@
+@button-bg: #4362bc;
+@delete-button-bg: #8c8c8c;
+@edit-button-bg: #b1baf8;
+
+.container {
+  background-color: @button-bg;
+  border-radius: 7px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  height: 40px;
+  padding: 5px 30px;
+  text-align: center;
+  text-decoration: none;
+  width: auto;
+
+  &:disabled {
+    background-color: #a60000;
+  }
+}
+
+a.container {
+  padding: 10px 30px;
+  display: inline-block;
+}
+
+.edit_button,
+.delete_button {
+  border-radius: 5px;
+  border: none;
+  box-shadow: 2px 2px 5px #b7b7b7;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  margin: 5px;
+  padding: 7px 10px;
+  text-decoration: none;
+}
+.edit_button {
+  background-color: @edit-button-bg;
+  color: #fff;
+}
+.delete_button {
+  background-color: @delete-button-bg;
+  color: #fff;
+}
