@@ -19,8 +19,8 @@
     "devDependencies": {
         "@babel/core": "^7.4.3",
         "@userstory/babel-preset": "^0.7.0",
-        "@userstory/eslint-config": "git+ssh://git@gitlab.userstory.ru:userstory-dev/eslint-config.git",
-        "@userstory/stylelint-config": "git+ssh://git@gitlab.userstory.ru:userstory-dev/stylelint-config.git",
+        "@userstory/eslint-config": "^0.6.1",
+        "@userstory/stylelint-config": "^0.7.0",
         "@userstory/webpack-config": "^0.2.0",
         "babel-jest": "^24.7.1",
         "cross-env": "^5.2.0",
